@@ -12,17 +12,17 @@ jobs:
     - name: Copiar repositorio
       uses: actions/checkout@v4
 
-    - name: Configurar entorno MSYS2 y MinGW (g++)
+    - name: Configurar entorno UCRT64 y MinGW (g++)
       uses: msys2/setup-msys2@v2
       with:
-        msystem: MINGW64
+        msystem: UCRT64
         update: true
         install: >-
-          mingw-w64-x86_64-toolchain
+          mingw-w64-ucrt-x86_64-toolchain
 
     - name: Compilar codigo fuente
       shell: msys2 {0}
-      run: g++ main.cpp -o geovaniss.exe -O3 -static
+      run: ucrt64-gcc main.cpp -o geovaniss.exe -O3 -static
 
     - name: Guardar el EXE como descarga (Artifact)
       uses: actions/upload-artifact@v4
